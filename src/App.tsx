@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import Card from './Card';
+
+interface PostData{
+  id: number;
+  title:string;
+  body: string;
+}
 
 function App() {
+
+  const [posts, setPost] = useState<PostData[]>([]);
+
+  useEffect(() => {    
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+    .then(posts => setPost(posts) );
+  }, 
+  [])
+
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+      {posts.map((post) =>(
+    <Card title={post.title} 
+    body={post.body} key={post.id}/>
+      ))}
     </div>
   );
 }
