@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export type Value = 'X' | 'O' | null; 
-//prueba
+
 export type BoardState = Value[];
 const createBoardState = () => Array<Value>(9).fill(null);
 
